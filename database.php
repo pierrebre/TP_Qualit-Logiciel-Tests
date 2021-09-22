@@ -1,17 +1,19 @@
 <?php
 $ini = parse_ini_file('app.ini');
 
-$serverhost = $ini['db_host'];
-$dbname = $ini['db_name'];
-$username = $ini['db_user'];
-$password = $ini['db_password'];
-
-// Create connection
-$conn = new mysqli($serverhost, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+$port = $ini['db_host'];
+$hote = $ini['db_host'];
+$nom_bdd = $ini['db_name'];
+$utilisateur = $ini['db_user'];
+$mot_de_passe = $ini['db_password'];
+try
+{
+	$cnx = new PDO('mysql:host='.$hote.';port='.$port.';dbname='.$nom_bdd,$utilisateur,$mot_de_passe);
 }
-echo 'db connected';
+// affichage de l'erreur en cas de mauvaise connexion à la base de données MySQL
+catch (Exception $e)
+{
+	echo 'Erreur : '.$e->getMessage().'</br/>';
+	echo 'N° : '.$e->getCode();
+}
 ?>
