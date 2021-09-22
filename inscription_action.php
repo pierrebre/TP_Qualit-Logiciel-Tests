@@ -15,7 +15,7 @@ include 'database.php';
 
     
 
-    $sql = "INSERT INTO users (user, email, password)
+    /*$sql = "INSERT INTO users (user, email, password)
     VALUES ('$user', '$email', '$password')";
 
     if ($conn->query($sql) === TRUE) {
@@ -24,7 +24,18 @@ include 'database.php';
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
   
-    $conn->close();
+    $conn->close();*/
+    $sql = "INSERT INTO users (user, email, password) VALUES ('$user', '$email', '$password')";
+
+        try{
+            
+            $cnx->exec($sql);
+            echo 'Entrée ajoutée dans la table';
+            }
+            catch(PDOException $e){
+                $cnx->rollBack();
+              echo "Erreur : " . $e->getMessage();
+            }
 
 
 
