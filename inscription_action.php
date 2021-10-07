@@ -12,6 +12,7 @@ include 'database.php';
     $email = $_POST['email'];
     $password = hash('sha256', $_POST['password']);
     $password_verif = hash('sha256', $_POST['password_verif']);
+    
 
     $query = "INSERT INTO users (user, email, password) VALUES ('".$user."', '".$email."', '".$password."')";
     if (!$cnx->exec($query)) {
@@ -20,10 +21,13 @@ include 'database.php';
             echo 'Username déjà existant, veuillez en choisir un autre.';
         } else if (strpos($erreur, "for key 'email'") !== false ) {
             echo 'Email déjà existant, veuillez en choisir un autre.';
-        } 
+        }
+        if($password !== $password_verif){
+            echo 'Les mots de passe ne correspondent pas';
+        }
     }
     else {
-        echo 'Entrée ajoutée dans la table';
+        echo 'Utilisateur ajoutée dans la table';
     }
  }
 
