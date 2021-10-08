@@ -1,21 +1,26 @@
-<html>
-<head>
-    <title>Authentification</title>
-</head>
-<body>
-    <h1>Information</h1>
-    <form action="login_action.php" method="post">
-        <div class="container">
-            <label for="user"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="user" required>
-        </div>
-        <div class="container">
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </form>
-</body>
-</html>
+<?php
+session_start();
+
+require('controller/UserController.php');
+
+try {
+    $userController = new UserController();
+    $userController->handleRequest();
+} catch (PDOException $e) {
+    //catch duplicate exceptions
+    $errorMessage = '';
+    if ($e->errorInfo[1] == 1062) {
+        if (strpos($e->errorInfo[2], 'username')) {
+            $errorMessage = 'Username already taken';
+        } else if (strpos($e->errorInfo[2], 'email')) {
+            $errorMessage = 'Email already taken';
+        }
+    } else {
+        $errorMessage = $e->getMessage();
+    }
+    require('view/errorView.php');
+} catch (Exception $e) {
+    $errorMessage = $e->getMessage();
+    require('view/errorView.php');
+}
+
