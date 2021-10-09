@@ -36,7 +36,7 @@ class User extends Manager
         }
     }
     //return true on success, and throw exception if input is not valid
-    private function registerInputIsValid(
+    public function registerInputIsValid(
         string $username,
         string $email,
         string $password,
@@ -48,23 +48,23 @@ class User extends Manager
             throw new Exception('Invalid email format');
         } else if (empty($username) || !$this->filterUsername($username) || strlen($username) <= 5) {
             throw new Exception('Invalid username format');
-        } else if (empty($password) || strlen($password) < 6) {
+        } else if (empty($password) || strlen($password) < 12) {
             throw new Exception('Invalid password format');
         } else {
             return true;
         }
     }
-    private function loginInputIsValid(string $username, string $password): bool
+    public function loginInputIsValid(string $email, string $password): bool
     {
-        if (empty($username) || !$this->filterUsername($username) || strlen($username) <= 5) {
-            throw new Exception('Invalid username format');
-        } else if (empty($password) || strlen($password) < 6) {
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception('Invalid email format');
+        } else if (empty($password) || strlen($password) < 12) {
             throw new Exception('Invalid password format');
         } else {
             return true;
         }
     }
-    private function filterUsername(string $username, string $filter = "/^[a-zA-Z0-9]{6,10}$/")
+    public function filterUsername(string $username, string $filter = "/^[a-zA-Z0-9]{6,10}$/")
     {
         return preg_match($filter, $username);
     }

@@ -18,7 +18,7 @@ $title = 'Register';
     <div class="mb-3">
         <label class="form-label" for="password"><b>Password</b></label>
         <input class="form-control" type="password" placeholder="Enter Password" id="password" name="password" required>
-        <small class="form-text text-muted">password must have at least 6 characters</small>
+        <small class="form-text text-muted">password must have at least 12 characters</small>
     </div>
 
     <div class="mb-3">
