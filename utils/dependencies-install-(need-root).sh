@@ -7,10 +7,10 @@ apt autoremove
 echo '----------installing php8.0----------'
 sleep 0.5
 apt-get install apt-transport-https lsb-release ca-certificates
-wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list'
-apt update
-apt-get install php8.0 php8.0-mysql php8.0-mbstring php8.0-xml php8.0-bcmath php8.0-curl php8.0-gd php8.0-zip
+wget -q -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+sudo sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list'
+sudo apt update
+sudo apt-get install php8.0 php8.0-mysql php8.0-mbstring php8.0-xml php8.0-bcmath php8.0-curl php8.0-gd php8.0-zip
 #installing composer
 echo '----------installing composer----------'
 sleep 0.5
@@ -24,7 +24,7 @@ mv composer.phar /usr/local/bin/composer
 echo '----------installing ngrok----------'
 sleep 0.5
 
-wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
 unzip ngrok-stable-linux-amd64.zip
 mv ngrok /usr/local/bin/ngrok
 #ask to add ngrok auth key
@@ -51,10 +51,10 @@ echo '----------installing jenkins----------'
 sleep 0.5
 
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | apt-key add -
-sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
     /etc/apt/sources.list.d/jenkins.list'
-apt-get update
-apt-get install jenkin
+sudo apt-get update
+sudo apt-get install jenkin
 #installing java
 echo '----------installing java----------'
 sleep 0.5
@@ -65,13 +65,15 @@ apt install openjdk-11-jdk
 #adding ssh key
 echo '----------adding ssh key for github connection----------'
 sleep 0.5
+
+added_ssh = false
+
 while true; do 
 read -p "add an ssh key? Y/n : " Yn
 case Yn in
     [Yy]*)
+        added_ssh = true
         ssh-keygen -t rsa;
-        echo 'add this key to github repo Deploy keys';
-        cat /root/.ssh/id_rsa.pub;
         break;;
     [Nn]*)
         echo 'no';
@@ -86,4 +88,11 @@ php -v
 composer --version
 ngrok -v
 mariadb --version
-java -v
+java --version
+if [added_ssh = true];then
+    echo 'add this key to github repo Deploy keys';
+    cat /root/.ssh/id_rsa.pub;
+fi
+sudo systemctl status jenkins.service
+
+echo 'you should still add your ngrok authtoken!'
