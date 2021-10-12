@@ -6,24 +6,27 @@ $title = 'Register';
 <form class="g-3" name="inscription-form" action="index.php?action=register" method="POST">
     <div class="mb-3">
         <label class="form-label" for="username"><b>Username</b></label>
-        <input class="form-control" type="text" placeholder="Enter Username" id="username" name="username" required>
-        <small class="form-text text-muted">Username must have at least 6 characters and can only contain letters and numbers</small>
+        <input class="form-control" type="text" placeholder="Enter Username" id="username" name="username" onchange="checkUsername(this.value)" required>
+        <br><div id="usernameCheck"></div>
+        <!-- <small class="form-text text-muted username">Username must have at least 6 characters and can only contain letters and numbers</small> -->
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="email"><b>Email</b></label>
         <input class="form-control" type="email" placeholder="Enter Email" id="email" name="email" required>
+        <br><div id="emailCheck"></div>    
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="password"><b>Password</b></label>
-        <input class="form-control" type="password" placeholder="Enter Password" id="password" name="password" required>
-        <small class="form-text text-muted">password must have at least 12 characters</small>
+        <input class="form-control" type="password" placeholder="Enter Password" id="password" name="password" onchange="checkPassword(this.value)" required>
+        <br><div id="passwordCheck"></div>    
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="password_verif"><b>Password verification</b></label>
-        <input class="form-control" type="password" placeholder="Enter Password again" id="password_verif" name="password_verif" required>
+        <input class="form-control" type="password" placeholder="Enter Password again" id="password_verif" name="password_verif" onchange="matchPassword(this.value)" required>
+        <br><div id="passwordVerifCheck"></div>    
     </div>
 
     <div>
