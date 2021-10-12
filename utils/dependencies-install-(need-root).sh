@@ -51,10 +51,10 @@ echo '----------installing jenkins----------'
 sleep 0.5
 
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | apt-key add -
-sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
     /etc/apt/sources.list.d/jenkins.list'
-apt-get update
-apt-get install jenkin
+sudo apt-get update
+sudo apt-get install jenkins
 #installing java
 echo '----------installing java----------'
 sleep 0.5
@@ -93,6 +93,8 @@ if [added_ssh = true];then
     echo 'add this key to github repo Deploy keys';
     cat /root/.ssh/id_rsa.pub;
 fi
+echo 'unlock jenkins with:'
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
     
 
 echo 'you should still add your ngrok authtoken!'
