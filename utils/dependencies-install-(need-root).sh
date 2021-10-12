@@ -11,7 +11,6 @@ wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list'
 apt update
 apt-get install php8.0 php8.0-mysql php8.0-mbstring php8.0-xml php8.0-bcmath php8.0-curl php8.0-gd php8.0-zip
-php -v
 #installing composer
 echo '----------installing composer----------'
 sleep 0.5
@@ -21,7 +20,6 @@ php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 mv composer.phar /usr/local/bin/composer
-composer --version
 #installing ngrok
 echo '----------installing ngrok----------'
 sleep 0.5
@@ -29,7 +27,6 @@ sleep 0.5
 wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
 unzip ngrok-stable-linux-amd64.zip
 mv ngrok /usr/local/bin/ngrok
-ngrok -v
 #ask to add ngrok auth key
 echo 'you still need to add your authtoken to ngrok'
 sleep 0.5
@@ -39,7 +36,6 @@ echo '----------installing mariadb, creating db_tp database and initialising it 
 sleep 0.5
 
 apt install mariadb-server
-mariadb --version
 mysql_secure_installation
 systemctl enable mariadb
 systemctl start mariadb
@@ -65,12 +61,29 @@ sleep 0.5
 
 apt update
 apt install openjdk-11-jdk
-java -v
 
 #adding ssh key
 echo '----------adding ssh key for github connection----------'
 sleep 0.5
+while true; do 
+read -p "add an ssh key? Y/n : " Yn
+case Yn in
+    [Yy]*)
+        ssh-keygen -t rsa;
+        echo 'add this key to github repo Deploy keys';
+        cat /root/.ssh/id_rsa.pub;
+        break;;
+    [Nn]*)
+        echo 'no';
+        exit;;
+    *)
+        echo 'enter y or n';;
+    esac
+done
 
-ssh-keygen -t rsa
-echo 'add this key to github repo Deploy keys'
-cat /root/.ssh/id_rsa.pub
+
+php -v
+composer --version
+ngrok -v
+mariadb --version
+java -v
