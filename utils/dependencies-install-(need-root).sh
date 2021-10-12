@@ -7,10 +7,10 @@ apt autoremove
 echo '----------installing php8.0----------'
 sleep 0.5
 apt-get install apt-transport-https lsb-release ca-certificates
-wget -q -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-sudo sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list'
-sudo apt update
-sudo apt-get install php8.0 php8.0-mysql php8.0-mbstring php8.0-xml php8.0-bcmath php8.0-curl php8.0-gd php8.0-zip
+wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list'
+apt update
+apt-get install php8.0 php8.0-mysql php8.0-mbstring php8.0-xml php8.0-bcmath php8.0-curl php8.0-gd php8.0-zip
 #installing composer
 echo '----------installing composer----------'
 sleep 0.5
@@ -24,7 +24,7 @@ mv composer.phar /usr/local/bin/composer
 echo '----------installing ngrok----------'
 sleep 0.5
 
-wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
 unzip ngrok-stable-linux-amd64.zip
 mv ngrok /usr/local/bin/ngrok
 #ask to add ngrok auth key
@@ -51,10 +51,10 @@ echo '----------installing jenkins----------'
 sleep 0.5
 
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | apt-key add -
-sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
     /etc/apt/sources.list.d/jenkins.list'
-sudo apt-get update
-sudo apt-get install jenkin
+apt-get update
+apt-get install jenkin
 #installing java
 echo '----------installing java----------'
 sleep 0.5
@@ -93,6 +93,6 @@ if [added_ssh = true];then
     echo 'add this key to github repo Deploy keys';
     cat /root/.ssh/id_rsa.pub;
 fi
-sudo systemctl status jenkins.service
+    
 
 echo 'you should still add your ngrok authtoken!'
