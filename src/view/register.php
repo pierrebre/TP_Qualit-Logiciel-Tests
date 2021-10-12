@@ -13,7 +13,7 @@ $title = 'Register';
 
     <div class="mb-3">
         <label class="form-label" for="email"><b>Email</b></label>
-        <input class="form-control" type="email" placeholder="Enter Email" id="email" name="email" required>
+        <input class="form-control" type="email" placeholder="Enter Email" id="email" name="email" onchange="checkEmail(this.value)" novalidate>
         <br><div id="emailCheck"></div>    
     </div>
 
