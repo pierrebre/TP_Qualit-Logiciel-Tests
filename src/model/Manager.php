@@ -10,14 +10,14 @@ class Manager
         $keys_to_check = array("db_host", "db_port", "db_name", "db_user", "db_password");
         #check if app.ini present and has all the required fields
         if (!file_exists('app.ini')) {
-            throw new Exception('app.ini file missing');
+            throw new UnexpectedValueException('app.ini file missing');
         } else {
             $ini = parse_ini_file('app.ini');
         }
 
         foreach ($keys_to_check as $key) {
             if (!array_key_exists($key, $ini)) {
-                throw new Exception('app.ini missing ' . $key);
+                throw new UnexpectedValueException('app.ini missing ' . $key);
             }
         }
 
