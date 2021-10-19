@@ -7,11 +7,6 @@ class UserController
         $this->user = new User();
     }
 
-    $_username = 'username';
-    $_password = 'password';
-    $_passwordVerif = 'password_verif';
-    $_email = 'email';
-
     public function handleRequest()
     {
         $action = isset($_GET['action']) ? $_GET['action'] : NULL;
@@ -32,10 +27,10 @@ class UserController
     public function login(): void
     {
         if (isset($_POST['submit'])) {
-            $email = isset($_POST[$_email]) ? $_POST[$_email] : NULL;
-            $password = isset($_POST[$_password]) ? $_POST[$_password] : NULL;
+            $email = isset($_POST['email']) ? $_POST['email'] : NULL;
+            $password = isset($_POST['password']) ? $_POST['password'] : NULL;
             $username = $this->user->login($email, $password);
-            $_SESSION[$_username] = $username;
+            $_SESSION['username'] = $username;
             $this->redirect('index.php?action=welcome');
         }
         require('view/login.php');
@@ -43,10 +38,10 @@ class UserController
     public function register(): void
     {
         if (isset($_POST['submit'])) {
-            $username = isset($_POST[$_username]) ? $_POST[$_username] : NULL;
-            $email = isset($_POST[$_email]) ? $_POST[$_email] : NULL;
-            $password = isset($_POST[$_password]) ? $_POST[$_password] : NULL;
-            $password_verif = isset($_POST[$_passwordVerif]) ? $_POST[$_passwordVerif] : NULL;
+            $username = isset($_POST['username']) ? $_POST['username'] : NULL;
+            $email = isset($_POST['email']) ? $_POST['email'] : NULL;
+            $password = isset($_POST['password']) ? $_POST['password'] : NULL;
+            $password_verif = isset($_POST['password_verif']) ? $_POST['password_verif'] : NULL;
             $this->user->register($username, $email, $password, $password_verif);
             $this->redirect('index.php?action=login');
         }
