@@ -8,7 +8,6 @@ $title = 'Register';
         <label class="form-label" for="username"><strong>Username</b></label>
         <input class="form-control" type="text" placeholder="Enter Username" id="username" name="username" onchange="checkUsername(this.value)" required>
         <br><div id="usernameCheck"></div>
-        <!-- <small class="form-text text-muted username">Username must have at least 6 characters and can only contain letters and numbers</small> -->
     </div>
 
     <div class="mb-3">

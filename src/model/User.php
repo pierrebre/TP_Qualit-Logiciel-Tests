@@ -12,7 +12,7 @@ class User extends Manager
             $req->execute();
             $user = $req->fetch();
             if (!$user || !password_verify($password, $user['password'])) {
-                throw new Exception('Failed to LogIn. Email or password incorrect');
+                throw new InvalidArgumentException('Failed to LogIn. Email or password incorrect');
             } else {
                 return $user['username'];
             }
@@ -43,13 +43,13 @@ class User extends Manager
         string $password_verif
     ): bool {
         if ($password !== $password_verif) {
-            throw new Exception('Passwords don\'t match');
+            throw new InvalidArgumentException('Passwords don\'t match');
         } else if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new Exception('Invalid email format');
+            throw new InvalidArgumentException('Invalid email format');
         } else if (empty($username) || !$this->filterUsername($username) || strlen($username) <= 5) {
-            throw new Exception('Invalid username format');
+            throw new InvalidArgumentException('Invalid username format');
         } else if (empty($password) || !$this->filterPassword($password)) {
-            throw new Exception('Invalid password format');
+            throw new InvalidArgumentException('Invalid password format');
         } else {
             return true;
         }
@@ -57,9 +57,9 @@ class User extends Manager
     public function loginInputIsValid(string $email, string $password): bool
     {
         if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new Exception('Invalid email format');
+            throw new InvalidArgumentException('Invalid email format');
         } else if (empty($password) || !$this->filterPassword($password)) {
-            throw new Exception('Invalid password format');
+            throw new InvalidArgumentException('Invalid password format');
         } else {
             return true;
         }
