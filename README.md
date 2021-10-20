@@ -13,7 +13,7 @@ Changer le droit du script puis lancer le avec :
 
 Copier la clé SSH puis l'ajouter dans "Deploy keys" dans le projet github
 
-Aller sur jenkins à l'adresse localhost:8080 et connecter à l'aide du token afficher dans la console à la du script
+Aller sur jenkins à l'adresse localhost:8080 et se connecter à l'aide du token afficher dans la console à la fin du script
 
 Tableau de bord -> Gestion des plugins 
 Puis installer SonarQubeScanner
@@ -22,16 +22,15 @@ Tableau de bord -> Configuration global
 Ajouter sonarQube Scanner
 ![6774bda2dbeb40e9dc83c23977d9b605](https://user-images.githubusercontent.com/56303623/138104241-870cdf5b-da16-4f98-bd88-ba35dcdf17ad.png)
 
-Aller sur sonarQube http://localhost:9000
-puis générer un token et copier le
-
 Tableau de bord -> System configuration
 Section SonarQube servers
 Nom : sonarqube
 Url du serveur : http://localhost:9000
 
-Ajouter un token global puis coller le token dans la secret phrase
 
+Aller sur sonarQube http://localhost:9000
+puis générer un token et copier le
+Ajouter un token global puis coller le token  dans la secret phrase
 
 - sudo visudo
 ![1e2560f18ab8b70a268bce0468260b76](https://user-images.githubusercontent.com/56303623/138106652-34ce1c21-992d-4246-8bfc-706ebe194253.png)
@@ -41,8 +40,6 @@ Créer un compte ngrok sur https://ngrok.com/ puis récupérer votre token puis 
 - ngrok http 8080
 
 Copier l'url ngrok/io
-
-
 Ajouter cette url dans les webhooks du projet github
 
 Récuperer le token sonarqube puis ajouter le dans les credentials jenkin
@@ -56,9 +53,7 @@ Ajouter une etape de build "Lancer une analyse avec SonarQube Scanner" :
 ![096235f87b63f161f29efe0ec033f9ae](https://user-images.githubusercontent.com/56303623/138098597-f3aa90d0-e844-4537-bfc3-6de1bd9006e5.png)
 
 Ajouter une etape de build "Exécuter un script shell" :
-![7ec4323ec47694fbdb4a19014e8d2e78](https://user-images.githubusercontent.com/56303623/138098568-d3279750-2043-464c-8735-238e54bcead7.png)
-
-
+![unknown](https://user-images.githubusercontent.com/56303623/138108719-03ad289a-ee36-4c3d-85bc-82d320ac5353.png)
 
 sudo vim /etc/php/8.0/fpm/php.ini
 file_uploads = On
