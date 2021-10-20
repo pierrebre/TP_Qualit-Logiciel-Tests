@@ -21,7 +21,7 @@ class UserController
         } else if (is_null($action)) {
             $this->home();
         } else {
-            throw new Exception('Page for ' . $action . ' was not found!');
+            throw new InvalidArgumentException('Page for ' . $action . ' was not found!');
         }
     }
     public function login(): void
