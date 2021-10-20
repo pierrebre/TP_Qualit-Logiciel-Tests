@@ -47,7 +47,13 @@ sleep 0.5
 
 apt install nginx
 
-#TODO: add nginx config
+
+#installing java
+echo '----------installing java----------'
+sleep 0.5
+
+apt update
+apt install openjdk-11-jdk
 
 #installing jenkins
 echo '----------installing jenkins----------'
@@ -58,12 +64,6 @@ sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
     /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update
 sudo apt-get install jenkins
-#installing java
-echo '----------installing java----------'
-sleep 0.5
-
-apt update
-apt install openjdk-11-jdk
 
 #add sonarqube
 echo '----------adding sonarqube----------'
