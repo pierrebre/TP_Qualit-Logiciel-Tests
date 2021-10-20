@@ -67,10 +67,9 @@ sudo apt-get install jenkins
 
 #add sonarqube
 echo '----------adding sonarqube----------'
-wget -q -O https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.1.0.47736.zip 
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.1.0.47736.zip 
 unzip sonarqube-9.1.0.47736.zip
-sudo cp sonarqube-9.1.0.47736.zip sonarqube
-sudo mv sonarqube /opt/
+sudo mv sonarqube-9.1.0.47736.zip /opt/sonarqube
 echo  -e '#/bin/bash\nexport PATH="$PATH:/opt/sonar-scanner/bin"' > /etc/profile.d/sonar.sh
 
 #adding ssh key
