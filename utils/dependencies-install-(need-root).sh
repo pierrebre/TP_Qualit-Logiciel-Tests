@@ -67,6 +67,8 @@ sudo apt-get install jenkins
 
 #add sonarqube
 echo '----------adding sonarqube----------'
+#adding nodejs for sonnar-scanner
+sudo apt install nodejs
 wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.1.0.47736.zip 
 unzip sonarqube-9.1.0.47736.zip
 sudo mv sonarqube-9.1.0.47736 /opt/sonarqube
