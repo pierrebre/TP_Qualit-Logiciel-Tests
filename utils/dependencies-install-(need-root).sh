@@ -10,7 +10,7 @@ apt-get install apt-transport-https lsb-release ca-certificates
 wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list'
 apt update
-apt-get install php8.0 php8.0-mysql php8.0-mbstring php8.0-xml php8.0-bcmath php8.0-curl php8.0-gd php8.0-zip
+apt-get install php8.0 php8.0-mysql php8.0-mbstring php8.0-xml php8.0-bcmath php8.0-curl php8.0-gd php8.0-zip php8.0-fpm php8.0-mcrypt php8.0-cli php8.0-gd php8.0-imagick php8.0-tidy php8.0-xmlrpc
 #installing composer
 echo '----------installing composer----------'
 sleep 0.5
@@ -46,6 +46,9 @@ echo '----------installing nginx----------'
 sleep 0.5
 
 apt install nginx
+
+#TODO: add nginx config
+
 #installing jenkins
 echo '----------installing jenkins----------'
 sleep 0.5
@@ -61,6 +64,13 @@ sleep 0.5
 
 apt update
 apt install openjdk-11-jdk
+
+#add sonarqube
+echo '----------adding sonarqube----------'
+wget -q -O https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.1.0.47736.zip 
+unzip sonarqube-9.1.0.47736.zip
+sudo mv sonarqube-9.1.0.47736 /opt/sonarqube
+echo  -e '#/bin/bash\nexport PATH="$PATH:/opt/sonar-scanner/bin"' > /etc/profile.d/sonar.sh
 
 #adding ssh key
 echo '----------adding ssh key for github connection----------'
@@ -89,6 +99,8 @@ composer --version
 ngrok -v
 mariadb --version
 java --version
+echo '\n PATH should now have /opt/sonarqube/bin/linux-x64-86\n and you can now start sonarqube with:\n sonar.sh start'
+env | grep PATH
 if [added_ssh = true];then
     echo 'add this key to github repo Deploy keys';
     cat /root/.ssh/id_rsa.pub;
@@ -97,4 +109,4 @@ echo 'unlock jenkins with:'
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
     
 
-echo 'you should still add your ngrok authtoken!'
+echo 'you should still: \nadd your ngrok authtoken!\nconfig nginx'
